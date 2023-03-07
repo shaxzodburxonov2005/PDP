@@ -6,11 +6,13 @@
     android:layout_height="wrap_content">
 
     <EditText
+        android:id="@+id/tv_name"
         android:hint="Kurs nomi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <EditText
+        android:id="@+id/tv_desc"
         android:hint="Kurs haqida "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -22,7 +24,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/save"
+            android:id="@+id/back"
             android:textSize="16sp"
             android:textColor="@color/black"
             android:text="Yopish"
@@ -30,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
-            android:id="@+id/back"
+            android:id="@+id/save"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:text="Qushish"

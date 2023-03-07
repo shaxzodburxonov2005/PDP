@@ -15,49 +15,21 @@ import com.example.myeducation.database.AppDatabase
 import com.example.myeducation.databinding.ActivityMainBinding
 import com.example.myeducation.databinding.ItemDialogcourseBinding
 import com.example.myeducation.model.Course
+import io.reactivex.rxjava3.core.Completable
 
 class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     private lateinit var binding:ActivityMainBinding
     lateinit var database: AppDatabase
-    lateinit var list1:ArrayList<Course>
-    lateinit var adapter:AdapterCourse
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         database=AppDatabase.getInstance(this)
-        list1=ArrayList()
-        list1.addAll(database.courseDao().getAllCourse())
-        database.courseDao().getAllCourse()
-
         val navHostController=supportFragmentManager.findFragmentById(R.id.fragmentContainerView2)
         navController=navHostController!!.findNavController()
         setSupportActionBar(binding.toolbar)
-
-        binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId){
-                R.id.addCourseFragment->{
-                    val alertDialog=AlertDialog.Builder(this).create()
-                    val alertDialogView=layoutInflater.inflate(R.layout.item_dialogcourse,binding.root,false)
-                    alertDialog.setView(alertDialogView)
-                    val bind=ItemDialogcourseBinding.bind(alertDialogView)
-                    alertDialog.show()
-                    bind.save.setOnClickListener {
-                        val name=bind.save.text.toString()
-                        val desc=bind.back.text.toString()
-                        val course=Course(null,name,desc)
-                        database.courseDao().insertCourse(course)
-                        val courseByName=database.courseDao().getCourseByName(name)
-
-
-                    }
-                    alertDialog.dismiss()
-                }
-            }
-            true
-        }
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
@@ -65,7 +37,46 @@ class MainActivity : AppCompatActivity() {
                 else -> binding.toolbar.visibility = View.VISIBLE
             }
         }
-            setupActionBarWithNavController(navController)
+        setupActionBarWithNavController(navController)
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.addCourse->{
+                    when(navController.currentDestination?.id){
+                        R.id.addCourseFragment->{
+                            val alertDialog=AlertDialog.Builder(this).create()
+                            val alertDialogView=layoutInflater.inflate(R.layout.item_dialogcourse,binding.root,false)
+                            alertDialog.setView(alertDialogView)
+                            val bind=ItemDialogcourseBinding.bind(alertDialogView)
+                            alertDialog.show()
+
+                            bind.save.setOnClickListener {
+
+                                val name=bind.tvName.text.toString()
+                                val desc=bind.tvDesc.text.toString()
+                                val course=Course(null,name,desc)
+
+                                Completable.fromCallable {
+                                    database.courseDao().insertCourse(course)
+                                }.subscribe()
+
+                                alertDialog.dismiss()
+                            }
+                            bind.back.setOnClickListener {
+                                alertDialog.dismiss()
+                            }
+                        }
+                        R.id.teacherFragment->{
+                            navController.navigate(R.id.addaNewTrainerFragment)
+                        }
+                    }
+
+                }
+            }
+            true
+        }
+
+
         }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -76,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.top_bar_menu,menu)
         navController.addOnDestinationChangedListener{controller,destination,arguments->
             when(destination.id){
-                R.id.addCourseFragment->{
+                R.id.addCourseFragment,R.id.teacherFragment->{
                     menu?.findItem(R.id.addCourse)?.isVisible=true
                 }
                 else->{

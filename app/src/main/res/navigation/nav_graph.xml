@@ -13,10 +13,76 @@
         <action
             android:id="@+id/action_enterFragment_to_addCourseFragment"
             app:destination="@id/addCourseFragment" />
+        <action
+            android:id="@+id/action_enterFragment_to_allCaourseFragment"
+            app:destination="@id/allCaourseFragment" />
+        <action
+            android:id="@+id/action_enterFragment_to_mentorsFragment"
+            app:destination="@id/mentorsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCourseFragment"
         android:name="com.example.myeducation.AddCourseFragment"
         android:label="Barcha kurslar ro’yxati"
-        tools:layout="@layout/fragment_add_course" />
+        tools:layout="@layout/fragment_add_course" >
+        <action
+            android:id="@+id/action_addCourseFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.myeducation.AboutFragment"
+        android:label="Android Development"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_aboutFragment_to_addStudentFragment"
+            app:destination="@id/addStudentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addStudentFragment"
+        android:name="com.example.myeducation.AddStudentFragment"
+        android:label="Talaba qo’shish"
+        tools:layout="@layout/fragment_add_student" />
+    <fragment
+        android:id="@+id/allCaourseFragment"
+        android:name="com.example.myeducation.AllCaourseFragment"
+        android:label="fragment_all_caourse"
+        tools:layout="@layout/fragment_all_caourse" >
+        <action
+            android:id="@+id/action_allCaourseFragment_to_tabFragment"
+            app:destination="@id/tabFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabFragment"
+        android:name="com.example.myeducation.TabFragment"
+        android:label="fragment_tab"
+        tools:layout="@layout/fragment_tab" />
+    <fragment
+        android:id="@+id/createaNewGroupFragment"
+        android:name="com.example.myeducation.CreateaNewGroupFragment"
+        android:label="fragment_createa_new_group"
+        tools:layout="@layout/fragment_createa_new_group" />
+    <fragment
+        android:id="@+id/mentorsFragment"
+        android:name="com.example.myeducation.MentorsFragment"
+        android:label="fragment_mentors"
+        tools:layout="@layout/fragment_mentors" >
+        <action
+            android:id="@+id/action_mentorsFragment_to_teacherFragment"
+            app:destination="@id/teacherFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherFragment"
+        android:name="com.example.myeducation.TeacherFragment"
+        android:label="fragment_teacher"
+        tools:layout="@layout/fragment_teacher" >
+        <action
+            android:id="@+id/action_teacherFragment_to_addaNewTrainerFragment"
+            app:destination="@id/addaNewTrainerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addaNewTrainerFragment"
+        android:name="com.example.myeducation.AddaNewTrainerFragment"
+        android:label="fragment_adda_new_trainer"
+        tools:layout="@layout/fragment_adda_new_trainer" />
 </navigation>

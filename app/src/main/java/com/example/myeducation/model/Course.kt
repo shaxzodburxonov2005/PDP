@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 @Entity
 data class Course(
     @PrimaryKey(autoGenerate = true)
-    var courseId:Int?=null,
+    var id:Int?=null,
     var courseName:String?,
     var courseDescription:String?,
 
-)
+):java.io.Serializable

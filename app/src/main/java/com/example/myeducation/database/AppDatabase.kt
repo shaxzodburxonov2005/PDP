@@ -6,8 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.myeducation.dao.EducationDao
 import com.example.myeducation.model.Course
+import com.example.myeducation.model.Mentor
 
-@Database(entities = [Course::class], version = 1)
+@Database(entities = [Course::class,Mentor::class] ,version = 1)
 abstract class AppDatabase:RoomDatabase() {
     abstract fun courseDao():EducationDao
 

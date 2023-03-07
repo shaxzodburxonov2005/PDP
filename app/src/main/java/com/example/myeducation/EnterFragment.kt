@@ -21,6 +21,12 @@ class EnterFragment : Fragment() {
         binding.cons1.setOnClickListener {
             findNavController().navigate(R.id.addCourseFragment)
         }
+        binding.cons2.setOnClickListener {
+            findNavController().navigate(R.id.allCaourseFragment)
+        }
+        binding.cons3.setOnClickListener {
+            findNavController().navigate(R.id.mentorsFragment)
+        }
 
         return view
     }
