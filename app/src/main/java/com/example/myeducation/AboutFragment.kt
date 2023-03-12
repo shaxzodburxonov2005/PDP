@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.myeducation.databinding.FragmentAboutBinding
 import com.example.myeducation.model.Course
+import com.example.myeducation.model.CourseWithMentor
 
 
 class AboutFragment : Fragment() {
@@ -19,8 +20,8 @@ class AboutFragment : Fragment() {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_about, container, false)
         binding= FragmentAboutBinding.bind(view)
-        val bind=arguments?.getSerializable("course")as Course
-        binding.tvDescription.text=bind.courseDescription
+        val bind=arguments?.getSerializable("course")as CourseWithMentor
+        binding.tvDescription.text=bind.course.courseDescription
 
         binding.addStudent.setOnClickListener {
             findNavController().navigate(R.id.addStudentFragment)

@@ -16,14 +16,18 @@ interface EducationDao {
     fun insertCourse(course: Course)
 
     @Query("SELECT * FROM Course")
-    fun getAllCourse():Flowable<List<Course>>
+    fun getAllCourse(): Flowable<List<Course>>
 
     @Query("SELECT * FROM Course Where courseName= :name ")
-    fun getCourseByName(name:String):Course
+    fun getCourseByName(name: String): Course
 
     @Transaction
     @Query("SELECT * FROM Course")
-    fun  getCourseWithMentor():List<CourseWithMentor>
+    fun getCourseWithMentor(): Flowable<List<CourseWithMentor>>
+
+    @Query("SELECT * FROM Mentor WHERE courseId = :courseId")
+    fun getAllMentors(courseId: Int): Flowable<List<Mentor>>
+
 
     @Insert
     fun insertMentor(mentor: Mentor)

@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.myeducation.database.AppDatabase
 import com.example.myeducation.databinding.FragmentAddaNewTrainerBinding
+import com.example.myeducation.model.Course
+import com.example.myeducation.model.CourseWithMentor
 import com.example.myeducation.model.Mentor
+import io.reactivex.rxjava3.core.Completable
 
 
 class AddaNewTrainerFragment : Fragment() {
@@ -23,13 +26,23 @@ class AddaNewTrainerFragment : Fragment() {
         database= AppDatabase.getInstance(requireContext())
 
 
+
+        val course=arguments?.getSerializable("add") as Course
+
         binding.AddSave.setOnClickListener {
             val firstname=binding.nameAdd.text.toString()
             val fatherName=binding.fatherNameAdd.text.toString()
             val lastName=binding.firstnameAdd.text.toString()
 
 
+            val mentor = Mentor(null,firstname,lastName,fatherName,course.id!!)
 
+            Completable.fromCallable {
+                database.courseDao().insertMentor(mentor)
+            }.subscribe()
+            binding.fatherNameAdd.text.clear()
+            binding.nameAdd.text.clear()
+            binding.firstnameAdd.text.clear()
 
         }
 

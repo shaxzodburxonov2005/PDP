@@ -7,21 +7,33 @@
     android:padding="16sp"
     tools:context=".AboutFragment">
 
-   <TextView
-       android:textSize="18sp"
-       android:id="@+id/tv_description"
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintLeft_toLeftOf="parent"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/add_student"
-        android:text="Talaba qo’shish"
-        android:backgroundTint="#0A252F"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/add_student"
+        >
 
+        <TextView
+            android:textSize="18sp"
+            android:id="@+id/tv_description"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </ScrollView>
+
+        <Button
+            app:layout_constraintTop_toBottomOf="@+id/scroll"
+            android:id="@+id/add_student"
+            android:text="Talaba qo’shish"
+            android:backgroundTint="#0A252F"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

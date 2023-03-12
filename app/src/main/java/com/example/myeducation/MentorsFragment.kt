@@ -10,13 +10,14 @@ import com.example.myeducation.adapter.AdapterCourse
 import com.example.myeducation.database.AppDatabase
 import com.example.myeducation.databinding.FragmentMentorsBinding
 import com.example.myeducation.model.Course
+import com.example.myeducation.model.CourseWithMentor
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 
 
 class MentorsFragment : Fragment() {
-    lateinit var binding:FragmentMentorsBinding
-    lateinit var adapter:AdapterCourse
+    lateinit var binding: FragmentMentorsBinding
+    lateinit var adapter: AdapterCourse
     lateinit var database: AppDatabase
 
 
@@ -25,26 +26,27 @@ class MentorsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_mentors, container, false)
-        binding= FragmentMentorsBinding.bind(view)
-        database= AppDatabase.getInstance(requireContext())
+        val view = inflater.inflate(R.layout.fragment_mentors, container, false)
+        binding = FragmentMentorsBinding.bind(view)
+        database = AppDatabase.getInstance(requireContext())
 
-        database.courseDao().getAllCourse()
+        database.courseDao().getCourseWithMentor()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{course->
-             adapter.submitList(course)
+            .subscribe { course ->
+                adapter.submitList(course)
             }
-        adapter= AdapterCourse(object :AdapterCourse.MyClick{
-            override fun rootClick(course: Course, position: Int) {
-                val bundle=Bundle()
-                bundle.putSerializable("course",course)
-                findNavController().navigate(R.id.teacherFragment,bundle)
+
+        adapter = AdapterCourse(object : AdapterCourse.MyClick {
+            override fun rootClick(course: CourseWithMentor, position: Int) {
+                val bundle = Bundle()
+                bundle.putSerializable("course", course)
+                findNavController().navigate(R.id.teacherFragment, bundle)
             }
 
         })
 
-        binding.rvAdapter.adapter=adapter
+        binding.rvAdapter.adapter = adapter
 
         return view
     }

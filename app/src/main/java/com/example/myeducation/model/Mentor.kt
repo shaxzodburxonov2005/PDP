@@ -12,5 +12,4 @@ data class Mentor(
     var sName:String?,
     var fathersName:String?,
     var courseId:Int
-
 )
