@@ -8,5 +8,4 @@ data class Course(
     var id:Int?=null,
     var courseName:String?,
     var courseDescription:String?,
-
 ):java.io.Serializable

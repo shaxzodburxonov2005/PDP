@@ -27,7 +27,7 @@ class AddaNewTrainerFragment : Fragment() {
 
 
 
-        val course=arguments?.getSerializable("add") as Course
+        val course=arguments?.getSerializable("course") as Course
 
         binding.AddSave.setOnClickListener {
             val firstname=binding.nameAdd.text.toString()

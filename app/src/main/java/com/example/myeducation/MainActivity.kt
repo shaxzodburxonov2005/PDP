@@ -3,25 +3,24 @@ package com.example.myeducation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.myeducation.adapter.AdapterCourse
 import com.example.myeducation.database.AppDatabase
 import com.example.myeducation.databinding.ActivityMainBinding
 import com.example.myeducation.databinding.ItemDialogcourseBinding
 import com.example.myeducation.model.Course
+import com.example.myeducation.model.CourseWithMentor
 import io.reactivex.rxjava3.core.Completable
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),TeacherFragment.OnItemSelectedListener {
     lateinit var navController: NavController
     private lateinit var binding:ActivityMainBinding
     lateinit var database: AppDatabase
-
+    var course:Course?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
@@ -67,7 +66,9 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                         R.id.teacherFragment->{
-                            navController.navigate(R.id.addaNewTrainerFragment)
+                            navController.navigate(R.id.addaNewTrainerFragment,
+                                bundleOf("course" to course)
+                            )
                         }
                     }
 
@@ -96,6 +97,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    override fun onItemSelected(course: CourseWithMentor) {
+        this.course=course.course
     }
 
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {

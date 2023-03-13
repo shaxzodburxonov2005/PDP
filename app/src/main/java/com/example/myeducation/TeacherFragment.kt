@@ -1,15 +1,16 @@
 package com.example.myeducation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import androidx.navigation.fragment.findNavController
 import com.example.myeducation.adapter.AdapterMentor
 import com.example.myeducation.database.AppDatabase
 import com.example.myeducation.databinding.FragmentTeacherBinding
-import com.example.myeducation.model.Course
 import com.example.myeducation.model.CourseWithMentor
 import com.example.myeducation.model.Mentor
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -20,6 +21,7 @@ class TeacherFragment : Fragment() {
     lateinit var binding: FragmentTeacherBinding
     lateinit var adapter: AdapterMentor
     lateinit var database: AppDatabase
+    lateinit var onItemSelectedListener:OnItemSelectedListener
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +31,7 @@ class TeacherFragment : Fragment() {
         binding = FragmentTeacherBinding.bind(view)
 
         val courseWithMentor = arguments?.getSerializable("course") as CourseWithMentor
+        onItemSelectedListener.onItemSelected(courseWithMentor)
         database = AppDatabase.getInstance(requireContext())
 
 
@@ -51,16 +54,21 @@ class TeacherFragment : Fragment() {
         })
 
 
-        binding.btnAdd.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putSerializable("add", courseWithMentor.course)
-            findNavController().navigate(R.id.addaNewTrainerFragment, bundle)
-        }
+
+
         binding.rvMentor.adapter = adapter
 
 
 
         return view
+    }
+    interface OnItemSelectedListener{
+        fun onItemSelected(course: CourseWithMentor)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onItemSelectedListener=context as OnItemSelectedListener
     }
 
 
